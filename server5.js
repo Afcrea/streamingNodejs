@@ -67,11 +67,7 @@ function resetRestriction(ip) {
 }
 
 function GetTextinMessage(message) {
-  // 데이터에서 JSON 부분만 추출
-  const rawData = message.trim();
-  const jsonData = rawData.substring(rawData.indexOf('{')); // JSON 시작 부분부터 추출
-
-  const data = JSON.parse(jsonData); // JSON 문자열을 객체로 변환
+  const data = JSON.parse(message); // JSON 문자열을 객체로 변환
   const sender = data.sender || 'Unknown'; // sender 값
   const text = data.text || ''; // text 값
 
