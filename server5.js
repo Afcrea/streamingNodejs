@@ -23,7 +23,7 @@ wss.on('connection', (ws, req) => {
     incrementChatCount(ip);
     resetRestriction(ip);
 
-    if(message != "ping") {
+    if(GetTextinMessage(message) != "ping") {
       console.log(`Received message from ${ip}: ${message}`);
       // 연결된 모든 클라이언트에게 메시지 브로드캐스트
       wss.clients.forEach((client) => {
@@ -64,4 +64,16 @@ function incrementChatCount(ip) {
 function resetRestriction(ip) {
   chatCountMap.set(ip, 0);
   isRestrictedMap.set(ip, false);
+}
+
+function GetTextinMessage(message) {
+  // 데이터에서 JSON 부분만 추출
+  const rawData = message.trim();
+  const jsonData = rawData.substring(rawData.indexOf('{')); // JSON 시작 부분부터 추출
+
+  const data = JSON.parse(jsonData); // JSON 문자열을 객체로 변환
+  const sender = data.sender || 'Unknown'; // sender 값
+  const text = data.text || ''; // text 값
+
+  return text;
 }
