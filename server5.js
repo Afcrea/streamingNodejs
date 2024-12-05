@@ -23,9 +23,8 @@ wss.on('connection', (ws, req) => {
     incrementChatCount(ip);
     resetRestriction(ip);
 
-    console.log(`Received message from ${ip}: ${message}`);
-    
     if(message != "ping") {
+      console.log(`Received message from ${ip}: ${message}`);
       // 연결된 모든 클라이언트에게 메시지 브로드캐스트
       wss.clients.forEach((client) => {
         if (client !== ws) {
